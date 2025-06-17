@@ -2,7 +2,7 @@
 
 This project is a **WiFi-enabled Smart Energy Meter** built using an ESP32. It monitors **Voltage, Current, Power, Energy (kWh), and Cost (₹)** in real-time. Data is displayed on a 16x2 LCD and broadcast over WiFi using a web server. The system also allows users to download logs in `.csv` format.
 
-![Project Overview](https://IMAGE_URL_HERE) <!-- Add circuit or setup image -->
+![Project Overview](https://github.com/yashtekale06/Smart-Energy-Meter/blob/main/Circuit%20digram.jpg) <!-- Add circuit or setup image -->
 
 ---
 
