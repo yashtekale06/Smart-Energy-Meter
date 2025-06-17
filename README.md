@@ -1,139 +1,150 @@
 # 🔌 Smart Energy Meter using ESP32 📊
 
-This project is a **WiFi-enabled Smart Energy Meter** built using an ESP32. It monitors **Voltage, Current, Power, Energy (kWh), and Cost (₹)** in real-time. Data is displayed on a 16x2 LCD and broadcast over WiFi using a web server. The system also allows users to download logs in `.csv` format.
-
-![Project Overview](https://github.com/yashtekale06/Smart-Energy-Meter/blob/main/Circuit%20digram.jpg) <!-- Add circuit or setup image -->
+This project is a **WiFi-enabled Smart Energy Meter** built using an ESP32. It monitors **Voltage, Current, Power, Energy (kWh), and Cost (₹)** in real-time. The device displays the values on an LCD and hosts a web server for live data viewing and CSV export.
 
 ---
 
-## 📷 Demo Preview
+## 📷 Project Images
 
-- 🔋 Real-time Voltage and Current readings  
-- ⚡ Power and Energy consumption tracking  
-- 🧾 CSV download (openable in Excel)  
-- 🌐 Web interface for remote monitoring  
+### 🔧 Hardware Setup
+<p align="center">
+  <img src="./Prototype.jpg" alt="Hardware Prototype" width="600">
+</p>
 
-![Web Dashboard](https://IMAGE_URL_HERE) <!-- Add dashboard screenshot -->
+---
+
+### 📟 LCD Display Screens
+
+**Startup Screen:**
+<p align="center">
+  <img src="./lcd%20data.jpg" alt="LCD Startup" width="400">
+</p>
+
+---
+
+**Live Voltage & Current Display:**
+<p align="center">
+  <img src="./lcd%20data.jpg" alt="LCD Live Reading" width="400">
+</p>
+
+---
+
+### 🌐 Web Server Dashboard
+
+**Example 1:**
+<p align="center">
+  <img src="./web%20server%20data%201.jpg" alt="Web Server Data 1" width="600">
+</p>
+
+---
+
+**Example 2:**
+<p align="center">
+  <img src="./web%20server%20data%202.jpg" alt="Web Server Data 2" width="600">
+</p>
+
+---
+
+## 📐 Project Design
+
+### 🔳 3D Model of Enclosure
+<p align="center">
+  <img src="./3D%20digarm%20of%20prototype.jpg" alt="3D Enclosure" width="600">
+</p>
+
+---
+
+### 🧠 Block Diagram
+<p align="center">
+  <img src="./block%20digram.jpg" alt="Block Diagram" width="600">
+</p>
+
+---
+
+### 🔌 Circuit Diagram
+<p align="center">
+  <img src="./Circuit%20digram.jpg" alt="Circuit Diagram" width="600">
+</p>
 
 ---
 
 ## 🛠️ Hardware Required
 
-| Component                 | Quantity | Description                        |
-|--------------------------|----------|------------------------------------|
-| ESP32 Dev Board          | 1        | Main MCU with WiFi support         |
-| ZMPT101B Voltage Sensor  | 1        | Measures AC Voltage                |
-| SCT-013 / ACS712 5A      | 1        | Non-invasive current sensor        |
-| LCD 16x2 with I2C Module | 1        | Displays readings locally          |
-| Jumper Wires, Breadboard | -        | For connections and prototyping    |
-
-![Components](https://IMAGE_URL_HERE) <!-- Optional: Add components photo -->
+| Component                 | Quantity | Description                                 |
+|---------------------------|----------|---------------------------------------------|
+| ESP32 Dev Board           | 1        | Main MCU with WiFi support                  |
+| ZMPT101B Module           | 1        | Voltage sensor                              |
+| SCT-013 (Current Sensor)  | 1        | Current measurement (Non-invasive)          |
+| LCD 16x2 with I2C         | 1        | Display values locally                      |
+| 10k Resistor, jumper wires, breadboard | - | Miscellaneous connections                 |
 
 ---
 
 ## 🧰 Hardware Connections
 
-| Component   | ESP32 Pin | Description                    |
-|-------------|-----------|--------------------------------|
-| ZMPT101B    | GPIO 35   | Voltage sensor analog input    |
-| ACS712/SCT-013 | GPIO 34 | Current sensor analog input    |
-| LCD SDA     | GPIO 21   | I2C data                       |
-| LCD SCL     | GPIO 22   | I2C clock                      |
-| Power (5V)  | VIN/GND   | Power to all modules           |
+| Component        | ESP32 Pin  | Notes                       |
+|------------------|------------|-----------------------------|
+| ZMPT101B         | GPIO 35    | Voltage sensor analog input |
+| SCT-013          | GPIO 34    | Current sensor analog input |
+| LCD SDA          | GPIO 21    | I2C communication           |
+| LCD SCL          | GPIO 22    | I2C communication           |
+| 5V Power Supply  | VIN / GND  | For sensors and LCD         |
 
-💡 *Use proper burden/calibration resistors for accurate readings.*
+💡 *Note: Use appropriate calibration resistors or burden resistors with the SCT-013 sensor.*
 
 ---
 
 ## 🔍 Features
 
-- Real-time monitoring on LCD and web  
-- Auto-switching LCD pages every 3 seconds  
-- ESP32 WiFi hotspot with live web dashboard  
-- Downloadable CSV logs  
-- Customizable unit cost for billing estimate  
+✅ Real-time Monitoring  
+✅ Dual-page LCD display (auto toggles every 3 sec)  
+✅ Web interface (auto refresh every 2 seconds)  
+✅ Downloadable CSV data  
+✅ Cost calculation based on kWh (customizable rate)
 
 ---
 
-## 📶 WiFi Setup
+## 📡 WiFi Access Point Setup
 
-- SSID: `ESP32_Server`  
-- Password: `12345678`  
-- Open browser and go to: [http://192.168.4.1](http://192.168.4.1)  
+Connect to:
+
+- **SSID:** `ESP32_Server`  
+- **Password:** `12345678`  
+
+Then open your browser and go to: `http://192.168.4.1`
 
 ---
 
-## 📺 LCD Display
+## 📺 LCD Handling
 
-The LCD automatically toggles between two pages:
+The 16x2 LCD automatically switches between two pages every 3 seconds:
 
 **Page 1:**  
-`V: 230.5V  I: 0.23A`  
-`P: 52.8W`
+- **V**: 230.5V **I**: 0.23A
+- **P**: 52.8W
+
 
 **Page 2:**  
-`Energy: 0.150 kWh`  
-`Cost: ₹0.98`
+- **Energy**: 0.150kWh
+-**Cost**: 0.98 INR
 
-![LCD Demo](https://IMAGE_URL_HERE) <!-- Add LCD screenshot -->
-
----
+----
 
 ## 🌐 Web Server Endpoints
 
-ESP32 hosts a simple web server with:
+ESP32 runs a mini web server with two main routes:
 
-- `/` → Live data dashboard  
-- `/data.csv` → CSV download  
+- `/` → Real-time dashboard  
+- `/data.csv` → CSV export for logging  
 
-![CSV Button UI](https://IMAGE_URL_HERE) <!-- Add download page image -->
+✅ Live dashboard shows voltage, current, power, energy, and cost.  
+✅ Download button lets users save a `.csv` report.
 
 ---
 
 ## 🧾 CSV Logging
 
-CSV format (tab-separated):  
-`Voltage	Current	Power	kWh	Cost`  
-Example:  
-`230.5	0.23	52.8	0.150	0.98`
+The ESP32 logs all readings in memory. Each cycle appends new values.
 
-Use Excel or Google Sheets to visualize data trends.
+📤 *CSV export makes this system suitable for billing, energy tracking, or energy audit use cases.*
 
----
-
-## 🧪 Calibration Tips
-
-- **ZMPT101B:** Adjust `voltageSensor.setSensitivity(653.0);`  
-- **ACS712 5A:** Adjust `emon.current(34, 1.0);` (try 0.95–1.1)  
-- Use a multimeter for real-world calibration comparison.
-
----
-
-## 📥 How to Use
-
-1. Upload the code to ESP32 using Arduino IDE  
-2. Connect to `ESP32_Server` WiFi  
-3. Open browser to `http://192.168.4.1`  
-4. View real-time data or download the CSV report  
-
----
-
-## 🔧 To-Do / Future Enhancements
-
-- ☁️ Add MQTT or Blynk for cloud monitoring  
-- 💾 Store data on SD card  
-- 🔋 Add battery backup support  
-
----
-
-## 📃 License
-
-MIT License – Free to use, modify, and share.  
-
----
-
-## 🙌 Credits
-
-- EmonLib  
-- Community tutorials and forums  
-- Made with ❤️ for smart energy innovation
